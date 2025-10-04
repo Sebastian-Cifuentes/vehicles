@@ -11,6 +11,7 @@ import { lastValueFrom } from 'rxjs';
 import { VehiclesService } from '../../services/vehicles.service';
 import { MessageService } from 'primeng/api';
 import { Vehicle } from '../../interface/vehicle.interface';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -20,7 +21,8 @@ import { Vehicle } from '../../interface/vehicle.interface';
     CommonModule,
     ReactiveFormsModule,
     CalendarModule,
-    DropdownModule
+    DropdownModule,
+    ToastModule
   ],
   templateUrl: './vehicle-form.component.html',
   styleUrl: './vehicle-form.component.scss',
@@ -84,20 +86,26 @@ export class VehicleFormComponent extends FormBase implements OnInit {
       } else {
         await lastValueFrom(this._vS.create(vehicle))
       }
-      this.showMessage('Se creo el vehículo', '');
+      this.showMessage('Se creo el vehículo', '', 'success');
       this.router.navigate(['vehicles'])
     } catch (error) {
+      this.loading = false;
+      this.showMessage('Un vehículo con esta placa ya existe', '', 'error');
       console.log(error);
     }
   }
 
-  showMessage(detail: string, summary: string) {
-    this.messageService.add({ severity: 'success', summary, detail });
+  showMessage(detail: string, summary: string, severity: string) {
+    this.messageService.add({ severity: severity, summary, detail });
   }
 
   private setDate(date: Date): Date {
     const newDate = new Date(date);
     newDate.setHours(newDate.getHours() + 24);
     return newDate;
+  }
+
+  back() {
+    this.router.navigateByUrl('vehicles');
   }
 }

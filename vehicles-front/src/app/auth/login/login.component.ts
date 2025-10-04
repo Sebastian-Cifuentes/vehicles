@@ -7,6 +7,8 @@ import { FormBase } from '../../bases/form.base';
 import { AuthService } from '../../services/auth.service';
 import { lastValueFrom } from 'rxjs';
 import { RouterModule } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-login',
@@ -16,17 +18,23 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     ButtonModule,
     ProgressSpinnerModule,
-    RouterModule
+    RouterModule,
+    ToastModule
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  providers: [
+    MessageService,
+  ]
 })
 export class LoginComponent extends FormBase implements OnInit {
 
   private _aS = inject(AuthService)
   loading = false;
 
-  constructor() {
+  constructor(
+        private messageService: MessageService,
+  ) {
     super();
   }
 
@@ -47,15 +55,22 @@ export class LoginComponent extends FormBase implements OnInit {
   }
 
   async onSubmit() {
-    if (this.parentForm.invalid) return;
     this.loading = true;
+    if (this.parentForm.invalid) return;
     try {
       const user = this.parentForm.value;
       await lastValueFrom(this._aS.login(user));
+      this.showMessage('Ingresando al sistema', '', 'success')
       this.router.navigate(['vehicles']);
     } catch (error) {
+      this.loading = false;
+      this.showMessage('Credenciales invalidas', '', 'error')
       console.log(error);
     }
+  }
+
+  showMessage(detail: string, summary: string, severity: string) {
+    this.messageService.add({ severity: severity, summary, detail });
   }
 
 }

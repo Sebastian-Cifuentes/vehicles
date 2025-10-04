@@ -6,6 +6,8 @@ import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../services/auth.service';
 import { lastValueFrom } from 'rxjs';
 import { RouterModule } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
@@ -14,17 +16,23 @@ import { RouterModule } from '@angular/router';
     ButtonModule,
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    ToastModule
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
+  providers: [
+    MessageService,
+  ]
 })
 export class RegisterComponent extends FormBase implements OnInit {
 
     private _aS = inject(AuthService)
     loading = false;
 
-    constructor() {
+    constructor(
+              private messageService: MessageService,
+    ) {
       super();
     }
   
@@ -54,8 +62,14 @@ export class RegisterComponent extends FormBase implements OnInit {
         await lastValueFrom(this._aS.create(user))
         this.router.navigate(['vehicles'])
       } catch (error) {
+        this.loading = false;
+        this.showMessage('Correo o nombre de usuario ya existen', '', 'error')
         console.log(error);
       }
+    }
+
+    showMessage(detail: string, summary: string, severity: string) {
+      this.messageService.add({ severity: severity, summary, detail });
     }
 
 }
