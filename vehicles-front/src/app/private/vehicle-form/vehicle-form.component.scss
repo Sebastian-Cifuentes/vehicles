@@ -1,0 +1,23 @@
+::ng-deep .p-dropdown {
+    background-color: #fafafa;
+    border-color: #858585;
+    width: 100%;
+}
+
+::ng-deep p-dropdown.invalid > .p-dropdown {
+    border-color: #fca5a5 !important;
+}
+
+::ng-deep p-calendar.invalid > .p-calendar > .p-inputtext {
+    border-color: #fca5a5 !important;
+}
+
+::ng-deep .p-calendar {
+    width: 100%;
+}
+
+::ng-deep .p-inputtext {
+    background-color: #fafafa;
+    border-color: #858585;
+    color: #4f565e;
+}

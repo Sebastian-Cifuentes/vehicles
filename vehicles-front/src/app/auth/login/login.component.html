@@ -1,0 +1,23 @@
+@if(!loading) {
+<p class="text-4xl text-center">Iniciar sesión</p>
+    <div class="bg-white w-6 my-0 mx-auto">   
+        <div class="px-4 pb-4 pt-4">
+            <div class="col-12 sm:col-12 md:col-12 lg:col-12">
+                <form [formGroup]="parentForm" class="flex flex-column align-items-center">
+                    <div class="field col-12 md:col-12 ">
+                        <label for="user" class="text-gray-800">Nombre de usuario o correo<span class="text-red-500">*</span></label>
+                        <input [ngClass]="getError('user') ? 'invalid' : ''" formControlName="user" id="user" type="text" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                        <small class="text-red-300" [hidden]="!getError('user')">{{getErrorMessage('user')}}</small>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label for="password" class="text-gray-800">Contraseña<span class="text-red-500">*</span></label>
+                        <input [ngClass]="getError('password') ? 'invalid' : ''" formControlName="password" id="password" type="password" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                        <small class="text-red-300" [hidden]="!getError('password')">{{getErrorMessage('password')}}</small>
+                    </div>
+                    <p-button id="submit" [disabled]="!parentForm.valid" label="Entrar" (click)="onSubmit()" />
+                    <a [routerLink]="'/auth/register'">Crear una cuenta</a>
+                </form>
+            </div>
+        </div>
+    </div>
+}

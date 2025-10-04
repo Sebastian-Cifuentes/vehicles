@@ -1,0 +1,63 @@
+@if (!loading) {
+    <p class="text-4xl text-center">Crea una nueva cuenta</p>
+    
+    <div class="bg-white w-6 my-0 mb-4 mx-auto">   
+        <div class="px-4 pb-4 pt-4">
+            <div class="col-12 sm:col-12 md:col-12 lg:col-12">
+                <form [formGroup]="parentForm" class="flex flex-column align-items-center">
+                    <div class="col-12 flex p-0">
+                        <div class="field col-6 sm:col-12 md:col-6">
+                            <label for="plate" class="text-gray-800">Placa<span class="text-red-500">*</span></label>
+                            <input [ngClass]="getError('plate') ? 'invalid' : ''" formControlName="plate" id="plate" type="text" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                            <small class="text-red-300" [hidden]="!getError('plate')">{{getErrorMessage('plate')}}</small>
+                        </div>
+                        <div class="flex flex-column field col-6 sm:col-12 md:col-6">
+                            <label for="type" class="text-gray-800">Tipo de vehículo<span class="text-red-500">*</span></label>
+                            <p-dropdown
+                            [ngClass]="getError('type') ? 'invalid' : ''"
+                            formControlName="type"
+                            [options]="vehiclesTypes" 
+                            optionLabel="name"
+                            optionValue="name"
+                            placeholder="Seleccioné el tipo" />
+                            <small class="text-red-300" [hidden]="!getError('type')">{{getErrorMessage('type')}}</small>
+                        </div>
+                    </div>
+                    <div class="col-12 flex p-0">
+                        <div class="field col-6 sm:col-12 md:col-6">
+                            <label for="model" class="text-gray-800">Modelo<span class="text-red-500">*</span></label>
+                            <input [ngClass]="getError('model') ? 'invalid' : ''" formControlName="model" id="model" type="number" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                            <small class="text-red-300" [hidden]="!getError('model')">{{getErrorMessage('model')}}</small>
+                        </div>
+                        <div class="field col-6 sm:col-12 md:col-6">
+                            <label for="brand" class="text-gray-800">Marca<span class="text-red-500">*</span></label>
+                            <input [ngClass]="getError('brand') ? 'invalid' : ''" formControlName="brand" id="brand" type="text" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                            <small class="text-red-300" [hidden]="!getError('brand')">{{getErrorMessage('brand')}}</small>
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label for="name_owner" class="text-gray-800">Nombre del propietario<span class="text-red-500">*</span></label>
+                        <input [ngClass]="getError('name_owner') ? 'invalid' : ''" formControlName="name_owner" id="name_owner" type="email" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                        <small class="text-red-300" [hidden]="!getError('name_owner')">{{getErrorMessage('name_owner')}}</small>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label for="email_owner" class="text-gray-800">Correo electrónico del propietario<span class="text-red-500">*</span></label>
+                        <input [ngClass]="getError('email_owner') ? 'invalid' : ''" formControlName="email_owner" id="email_owner" type="email" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                        <small class="text-red-300" [hidden]="!getError('email_owner')">{{getErrorMessage('email_owner')}}</small>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label for="number_owner" class="text-gray-800">Número del propietario<span class="text-red-500">*</span></label>
+                        <input [ngClass]="getError('number_owner') ? 'invalid' : ''" formControlName="number_owner" id="number_owner" type="number" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                        <small class="text-red-300" [hidden]="!getError('number_owner')">{{getErrorMessage('number_owner')}}</small>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label for="entry_date" class="text-gray-800">Fecha de ingreso<span class="text-red-500">*</span></label>
+                        <p-calendar [ngClass]="getError('entry_date') ? 'invalid' : ''" formControlName="entry_date"/>
+                        <small class="text-red-300" [hidden]="!getError('entry_date')">{{getErrorMessage('entry_date')}}</small>
+                    </div>
+                    <p-button id="submit" [disabled]="parentForm.invalid" [label]=" !id ? 'Crear vehículo' : 'Editar vehículo' " (click)="onSubmit()" />
+                </form>
+            </div>
+        </div>
+    </div>
+}

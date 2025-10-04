@@ -1,0 +1,34 @@
+@if (!loading) {
+<p class="text-4xl text-center">Crea una nueva cuenta</p>
+    <div class="bg-white w-6 my-0 mx-auto">   
+        <div class="px-4 pb-4 pt-4">
+            <div class="col-12 sm:col-12 md:col-12 lg:col-12">
+                <form [formGroup]="parentForm" class="flex flex-column align-items-center">
+                    <div class="field col-12 md:col-12">
+                        <label for="name" class="text-gray-800">Nombre<span class="text-red-500">*</span></label>
+                        <input [ngClass]="getError('name') ? 'invalid' : ''" formControlName="name" id="name" type="text" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                        <small class="text-red-300" [hidden]="!getError('name')">{{getErrorMessage('name')}}</small>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label for="username" class="text-gray-800">Nombre de usuario<span class="text-red-500">*</span></label>
+                        <input [ngClass]="getError('username') ? 'invalid' : ''" formControlName="username" id="username" type="text" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                        <small class="text-red-300" [hidden]="!getError('username')">{{getErrorMessage('username')}}</small>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label for="email" class="text-gray-800">Correo electrónico<span class="text-red-500">*</span></label>
+                        <input [ngClass]="getError('email') ? 'invalid' : ''" formControlName="email" id="email" type="email" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                        <small class="text-red-300" [hidden]="!getError('email')">{{getErrorMessage('email')}}</small>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label for="password" class="text-gray-800">Contraseña<span class="text-red-500">*</span></label>
+                        <input [ngClass]="getError('password') ? 'invalid' : ''" formControlName="password" id="password" type="password" class="text-base text-200 surface-800 p-2 border-1 surface-800 border-round outline-none focus:border-primary w-full">
+                        <small class="text-red-300" [hidden]="!getError('password')">{{getErrorMessage('password')}}</small>
+                    </div>
+                    <p-button id="submit" [disabled]="!parentForm.valid" label="Crear nueva cuenta" (click)="onSubmit()" />
+                    <a [routerLink]="'/auth/login'">Iniciar sesión</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+}
