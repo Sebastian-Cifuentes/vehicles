@@ -69,7 +69,7 @@ export class VehicleFormComponent extends FormBase implements OnInit {
       plate: new FormControl(this.vehicle?.plate, [Validators.required, Validators.maxLength(10)]),
       type: new FormControl(this.vehicle?.type, Validators.required),
       model: new FormControl(+this.vehicle?.model, [Validators.required, Validators.maxLength(20)]),
-      entry_date: new FormControl(this.vehicle?.entry_date ? new Date(this.vehicle?.entry_date) : '', Validators.required),
+      entry_date: new FormControl(this.vehicle?.entry_date ? this.setDate(this.vehicle.entry_date) : '', Validators.required),
       brand: new FormControl(this.vehicle?.brand, [Validators.required, Validators.maxLength(20)]),
     })
   }
@@ -78,7 +78,7 @@ export class VehicleFormComponent extends FormBase implements OnInit {
     if (this.parentForm.invalid) return;
     this.loading = true;
     try {
-      const vehicle = this.parentForm.value;
+      const vehicle: Vehicle = this.parentForm.value;
       if (this.id) {
         await lastValueFrom(this._vS.update(vehicle, this.id))
       } else {
@@ -93,5 +93,11 @@ export class VehicleFormComponent extends FormBase implements OnInit {
 
   showMessage(detail: string, summary: string) {
     this.messageService.add({ severity: 'success', summary, detail });
+  }
+
+  private setDate(date: Date): Date {
+    const newDate = new Date(date);
+    newDate.setHours(newDate.getHours() + 24);
+    return newDate;
   }
 }

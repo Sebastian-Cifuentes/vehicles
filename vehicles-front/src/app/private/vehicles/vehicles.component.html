@@ -32,6 +32,8 @@
                             Email del propietario <p-sortIcon field="last_name" />
                         <th scope="col" pSortableColumn="number_owner" >
                             Número del propietario <p-sortIcon field="sex" />
+                        <th scope="col" pSortableColumn="entry_date" style="width:15%">
+                            Fecha de ingreso <p-sortIcon field="sex" />
                         <th scope="col"></th>
                     </tr>
                 </ng-template>
@@ -44,6 +46,7 @@
                         <td>{{ vehicle.name_owner }}</td>
                         <td>{{ vehicle.email_owner }}</td>
                         <td>{{ vehicle.number_owner }}</td>
+                        <td>{{ vehicle.entry_date }}</td>
                         <td>
                             <div class="inline-flex">
                                 <p-button [routerLink]="'/vehicles-form/' + vehicle.id" class="mr-2" icon="pi pi-pen-to-square" />
